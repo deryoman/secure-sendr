@@ -1,15 +1,19 @@
 import {Base64} from "js-base64";
 
-export const createUrl = (id: string, key: string): URL => {
-    const url = new URL(window.location.href)
-    const data = {i: id, k: key}
-
-    url.hash = Base64.encode(JSON.stringify(data), true)
-
-    return url
+export interface UrlPayload {
+    id: string
+    key: string
 }
 
-export const getDataFromUrl = (): { id: string, key: string } | null => {
+export const createShareUrl = ({id, key}: UrlPayload): URL => {
+    return createUrl('share', {id, key})
+}
+
+export const createShowUrl = ({id, key}: UrlPayload): URL => {
+    return createUrl('show', {id, key})
+}
+
+export const getUrlPayload = (): UrlPayload | undefined => {
     const url = new URL(window.location.href)
 
     if (url.hash) {
@@ -25,5 +29,13 @@ export const getDataFromUrl = (): { id: string, key: string } | null => {
         }
     }
 
-    return null
+    return undefined
+}
+
+const createUrl = (path: string, payload: UrlPayload): URL => {
+    const url = new URL(window.location.href)
+    url.pathname = path
+    url.hash = Base64.encode(JSON.stringify({i: payload.id, k: payload.key}), true)
+
+    return url
 }
