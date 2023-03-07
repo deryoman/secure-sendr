@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "isolatedModules": true,
+    "lib": [
+      "es2017",
+      "dom"
+    ],
+    "strict": true,
+    "target": "es2017"
+  }
+}
