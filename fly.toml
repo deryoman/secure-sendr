@@ -1,4 +1,4 @@
-# fly.toml file generated for secure-sendr on 2023-03-07T15:13:01+01:00
+# fly.toml file generated for secure-sendr on 2023-03-07T16:18:25+01:00
 
 app = "secure-sendr"
 kill_signal = "SIGINT"
