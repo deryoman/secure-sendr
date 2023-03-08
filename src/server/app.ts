@@ -44,7 +44,14 @@ app.get(`/api/data/:id`, async (req, res) => {
         return
     }
 
-    res.json(data)
+    prisma.data.delete({
+        where: {id: id}
+    })
+        .then(() => res.json(data))
+        .catch(() => {
+            res.status(404)
+            res.json({error: `No data found for id '${id}'`})
+        })
 })
 
 app.listen(port, () => {
