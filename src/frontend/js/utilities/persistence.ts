@@ -1,45 +1,49 @@
-import {createClient} from '@supabase/supabase-js'
-import {nanoid} from "nanoid";
-import {Database} from "../types/supabase";
-
-const supabase = createClient<Database>(
-    process.env.SUPABASE_URL as string,
-    process.env.SUPABASE_ANON_KEY as string
-)
+import fetch from 'node-fetch';
 
 export const insert = async (iv: string, cipherText: string): Promise<string> => {
-    const id = nanoid(11)
+    const body = {
+        iv,
+        cipherText
+    };
 
-    const {error} = await supabase
-        .from('password')
-        .insert({
-            id: id,
-            iv: iv,
-            cipherText: cipherText
-        })
+    try {
+        const response = await fetch('/api/data', {
+            method: 'post',
+            body: JSON.stringify(body),
+            headers: {'Content-Type': 'application/json'}
+        });
 
-    if (error) {
-        return Promise.reject(error)
+        const data = await response.json();
+
+        if (response.status !== 200 || !data) {
+            console.error('Error while saving data - Status: "%s"', response.status)
+            return Promise.reject('Error while saving data')
+        }
+
+        return data.id
+    } catch (error) {
+        console.log(error);
+        return Promise.reject('Error while saving data')
     }
-
-    return id
 }
 
 export const get = async (id: string) => {
     try {
-        const {data, error} = await supabase
-            .from('password')
-            .select('iv, cipherText')
-            .eq('id', id)
-            .single()
+        const response = await fetch(`/api/data/${id}`);
 
-        if (error) {
-            console.error('error', error)
-            return
+        const data = await response.json();
+
+        if (response.status !== 200 || !data) {
+            console.error('Error while retrieving data - Status: "%s"', response.status)
+            return Promise.reject('Error while retrieving data')
         }
 
-        return data
-    } catch (err) {
-        console.error('Error retrieving data from db', err)
+        return {
+            iv: data.iv,
+            cipherText: data.cipherText
+        }
+    } catch (error) {
+        console.log(error);
+        return Promise.reject('Error while retrieving data')
     }
 }

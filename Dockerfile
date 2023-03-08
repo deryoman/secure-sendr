@@ -1,20 +1,17 @@
 FROM node:18 as build
 
-WORKDIR /usr
+WORKDIR /app
 
-COPY package.json ./
-COPY package-lock.json ./
+COPY package*.json ./
+COPY prisma ./prisma/
 RUN npm ci
-
-COPY . ./
+COPY . .
 RUN npm run build
 
 FROM node:18-alpine as runtime
 
-HEALTHCHECK CMD curl --fail http://localhost:8080 || exit 1
+HEALTHCHECK CMD curl --fail http://localhost:3000 || exit 1
 
-ENV SSENDR_SERVER_HOST="0.0.0.0"
-ENV SSENDR_SERVER_PORT="8080"
 ENV SSENDR_STATIC_ROOT_FOLDER="public"
 
 RUN addgroup ssendr --gid 10002
@@ -37,9 +34,17 @@ WORKDIR /home/ssendr
 COPY package.json ./
 RUN npm install --omit=dev
 
-COPY --from=build /usr/public ./public
-COPY --from=build /usr/dist/server .
+COPY --from=build /app/public ./public
+COPY --from=build /app/dist/server/app.js .
+COPY --from=build /app/prisma ./prisma
 
-EXPOSE 8080
+# Entrypoint
+COPY --from=build --chown=ssendr /app/entrypoint.sh .
+RUN chmod +x entrypoint.sh
 
-CMD [ "npm", "run", "start" ]
+EXPOSE 3000
+
+ENV PORT 3000
+
+ENTRYPOINT [ "/home/ssendr/entrypoint.sh" ]
+#CMD [ "npm", "run", "start" ]

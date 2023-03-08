@@ -6,13 +6,18 @@ kill_timeout = 5
 processes = []
 
 [env]
+SSENDR_DATABASE_PATH = "file:/mnt/database.sqlite"
+
+[mount]
+source = "data"
+destination = "/mnt"
 
 [experimental]
   auto_rollback = true
 
 [[services]]
   http_checks = []
-  internal_port = 8080
+  internal_port = 3000
   processes = ["app"]
   protocol = "tcp"
   script_checks = []

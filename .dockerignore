@@ -2,4 +2,7 @@
 dist
 node_modules
 public
-.env
+**/*.sqlite*
+.gitignore
+Dockerfile
+fly.toml
