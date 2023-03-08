@@ -1,4 +1,4 @@
-import {Base64} from "js-base64";
+import {Base64} from "js-base64"
 
 export interface UrlPayload {
     id: string
@@ -18,7 +18,7 @@ export const getUrlPayload = (): UrlPayload | undefined => {
 
     if (url.hash) {
         try {
-            const data = JSON.parse(Base64.decode(url.hash));
+            const data = JSON.parse(Base64.decode(url.hash))
 
             return {
                 id: data.i,

@@ -1,5 +1,5 @@
-import {arrayBufferToBase64, base64ToArrayBuffer} from "./buffer";
-import {EncryptionData} from "../types/encryptionData";
+import {arrayBufferToBase64, base64ToArrayBuffer} from "./buffer"
+import {EncryptionData} from "../types/encryptionData"
 
 const {subtle} = globalThis.crypto
 

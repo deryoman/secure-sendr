@@ -1,7 +1,7 @@
-import {createShareUrl} from "./utilities/url";
-import {insert} from "./utilities/persistence";
-import {encrypt} from "./utilities/crypt";
-import {boot} from "./utilities/boot";
+import {createShareUrl} from "./utilities/url"
+import {insert} from "./utilities/persistence"
+import {encrypt} from "./utilities/crypt"
+import {boot} from "./utilities/boot"
 
 boot(async function () {
     const content = document.getElementById('content') as HTMLElement

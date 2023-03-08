@@ -6,3 +6,4 @@ public
 .gitignore
 Dockerfile
 fly.toml
+.env

@@ -1,11 +1,11 @@
-import {boot} from "./utilities/boot";
-import {getUrlPayload} from "./utilities/url";
-import {get} from "./utilities/persistence";
-import {decrypt} from "./utilities/crypt";
+import {boot} from "./utilities/boot"
+import {getUrlPayload} from "./utilities/url"
+import {get} from "./utilities/persistence"
+import {decrypt} from "./utilities/crypt"
 
 boot(async function () {
     const content = document.getElementById('content') as HTMLElement
-    const urlPayload = getUrlPayload();
+    const urlPayload = getUrlPayload()
 
     if (urlPayload) {
         const textArea = content.querySelector('[data-template-result-textarea]') as HTMLTextAreaElement

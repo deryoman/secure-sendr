@@ -1,5 +1,5 @@
-import * as express from "express";
-import {Prisma, PrismaClient} from "@prisma/client";
+import * as express from "express"
+import {PrismaClient} from "@prisma/client"
 import {nanoid} from 'nanoid'
 
 const prisma = new PrismaClient()
@@ -8,7 +8,7 @@ const app = express()
 const port = Number(String(process.env.PORT)) || 3000
 const nanoIdSize = Number(String(process.env.SSENDR_ID_SIZE)) || 11
 
-app.use(express.json());
+app.use(express.json())
 app.use(express.static(process.env.SSENDR_STATIC_ROOT_FOLDER || 'dist'))
 
 app.post(`/api/data`, async (req, res) => {
