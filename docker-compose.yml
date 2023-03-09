@@ -1,0 +1,10 @@
+version: "3.9"
+
+services:
+  ssendr:
+    container_name: secure-sendr
+    image: secure-sendr
+    ports:
+      - 3000:3000
+    environment:
+      SSENDR_DATABASE_PATH: file:/home/ssendr/database.sqlite
