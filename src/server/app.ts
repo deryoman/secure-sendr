@@ -7,4 +7,4 @@ app.use(express.json())
 app.use(express.static(process.env.SSENDR_STATIC_ROOT_FOLDER || 'dist'))
 app.use('/api', routes)
 
-export {app}
+export default app

@@ -35,7 +35,7 @@ COPY package.json ./
 RUN npm install --omit=dev
 
 COPY --from=build /app/public ./public
-COPY --from=build /app/dist/server/server.js .
+COPY --from=build /app/dist/server .
 COPY --from=build /app/prisma ./prisma
 
 # Entrypoint
