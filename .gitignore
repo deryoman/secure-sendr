@@ -145,3 +145,6 @@ dist
 
 public/
 **/*.sqlite*
+/test-results/
+/playwright-report/
+/playwright/.cache/
