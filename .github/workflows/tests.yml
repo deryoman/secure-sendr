@@ -12,14 +12,20 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
         with:
           node-version: 18
       - name: Install dependencies
         run: npm ci
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
+      - name: Start docker containers
+        run: |
+          docker-compose -f docker-compose.test.yml up --build --detach
+          sleep 10  # --wait is available in docker-compose version >=2.1
       - name: Run Playwright tests
         run: npm run test:e2e
       - uses: actions/upload-artifact@v3
@@ -30,4 +36,4 @@ jobs:
           retention-days: 30
       - name: Stop containers
         if: always()
-        run: npm run test:e2e:docker:down
+        run: docker-compose -f docker-compose.test.yml down

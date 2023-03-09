@@ -21,7 +21,6 @@ test('Shared link should be decrypt-able', async ({page}) => {
     const shareLink = await page.locator('[data-template-link-input]').inputValue()
 
     await page.goto(shareLink)
-    await page.waitForSelector('[data-template-result-textarea]')
 
     const decryptedText = await page.locator('[data-template-result-textarea]').inputValue()
 
@@ -35,13 +34,11 @@ test('Shared link should only be able to be used once', async ({page}) => {
     const shareLink = await page.locator('[data-template-link-input]').inputValue()
 
     await page.goto(shareLink)
-    await page.waitForSelector('[data-template-result-textarea]')
 
     const firstDecryptedText = await page.locator('[data-template-result-textarea]').inputValue()
     await expect(firstDecryptedText).toBe('foo bar')
 
     await page.goto(shareLink)
-    await page.waitForSelector('[data-template-result-textarea]')
 
     const secondDecryptedText = await page.locator('[data-template-result-textarea]').inputValue()
     await expect(secondDecryptedText).toBe('')
