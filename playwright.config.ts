@@ -83,9 +83,9 @@ export default defineConfig({
     /* Folder for test artifacts such as screenshots, videos, traces, etc. */
     // outputDir: 'test-results/',
 
-    webServer: {
-        command: 'npm run serve',
-        url: 'http://127.0.0.1:3000',
-        reuseExistingServer: !process.env.CI,
-    }
+    // webServer: {
+    //     command: 'npm run serve',
+    //     url: 'http://127.0.0.1:3000',
+    //     reuseExistingServer: !process.env.CI,
+    // }
 });

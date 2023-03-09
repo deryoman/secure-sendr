@@ -13,6 +13,7 @@ FROM node:18-alpine as runtime
 HEALTHCHECK CMD curl --fail http://localhost:3000 || exit 1
 
 ENV SSENDR_STATIC_ROOT_FOLDER="public"
+ENV SSENDR_DATABASE_PATH="file:/home/ssendr/database.sqlite"
 
 RUN addgroup ssendr --gid 10002
 RUN adduser ssendr \
