@@ -26,7 +26,8 @@ RUN apk upgrade --no-cache --available && apk add --no-cache \
     g++ \
     make \
     py3-pip \
-    bash
+    bash \
+    curl
 
 USER 10002
 
